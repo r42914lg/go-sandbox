@@ -1,11 +1,29 @@
 version: '3.8'
 
 services:
+  svc-2:
+    build: ./service_2
+    image: liza-2:v1
+    ports:
+      - 8081:8092
+    networks:
+      my-net-1:
+    deploy:
+      restart_policy:
+        condition: on-failure
+            
   svc-1:
+    depends_on:
+      - svc-2
     build: ./service_1
     image: liza-1:v1
     ports:
       - 8080:8091
+    networks:
+      my-net-1:
     deploy:
       restart_policy:
         condition: on-failure
+        
+networks:
+  my-net-1:
