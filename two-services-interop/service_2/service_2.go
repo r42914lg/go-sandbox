@@ -6,6 +6,8 @@ import (
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
+
+	domain "r42914lg.com/domain"
 )
 
 func main() {
@@ -21,23 +23,15 @@ func main() {
 	e.Logger.Fatal(e.Start(":" + httpPort))
 }
 
-type RequestBody struct {
-	Value int `json:"value"`
-}
-
-type ServiceTwoResponse struct {
-	StrValue string `json:"str_val"`
-}
-
 func sendHandler(c echo.Context) error {
-	var requestBody RequestBody
+	var requestBody domain.RequestBody
 
 	err := c.Bind(&requestBody)
 	if err != nil {
 		return c.String(http.StatusBadRequest, "bad request")
 	}
 
-	resp := &ServiceTwoResponse{
+	resp := &domain.ServiceTwoResponse{
 		StrValue: fmt.Sprintf("in SERVICE_2 val incremented is %d !!!", requestBody.Value+1),
 	}
 

@@ -9,6 +9,8 @@ import (
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
+
+	domain "r42914lg.com/domain"
 )
 
 func main() {
@@ -24,16 +26,8 @@ func main() {
 	e.Logger.Fatal(e.Start(":" + httpPort))
 }
 
-type ServiceOneRequestBody struct {
-	IntValue int `json:"value"`
-}
-
-type ServiceTwoResponse struct {
-	StrValue string `json:"str_val"`
-}
-
 func endPointOneHandler(c echo.Context) error {
-	var requestBody ServiceOneRequestBody
+	var requestBody domain.ServiceOneRequestBody
 
 	err := c.Bind(&requestBody)
 	if err != nil {
@@ -55,7 +49,7 @@ func endPointOneHandler(c echo.Context) error {
 	defer resp.Body.Close()
 	body, err := ioutil.ReadAll(resp.Body)
 
-	var serviceTwoResponse ServiceTwoResponse
+	var serviceTwoResponse domain.ServiceTwoResponse
 	if err = json.Unmarshal(body, &serviceTwoResponse); err != nil {
 		return err
 	}
