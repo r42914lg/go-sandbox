@@ -1,10 +1,10 @@
-module r42914lg.com/service-2
+module service-2
 
 go 1.22.1
 
 require (
 	github.com/labstack/echo/v4 v4.11.4
-	r42914lg.com/domain v0.0.0-00010101000000-000000000000
+	github.com/r42914lg/go-domain v0.0.0-20240326095630-dc2f85b13967
 )
 
 require (
@@ -20,5 +20,3 @@ require (
 	golang.org/x/text v0.14.0 // indirect
 	golang.org/x/time v0.5.0 // indirect
 )
-
-replace r42914lg.com/domain => ../domain

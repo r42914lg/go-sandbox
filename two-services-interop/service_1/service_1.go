@@ -10,7 +10,7 @@ import (
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 
-	domain "r42914lg.com/domain"
+	domain "github.com/r42914lg/go-domain"
 )
 
 func main() {
