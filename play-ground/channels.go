@@ -121,3 +121,52 @@ func worker(num int) {
 	time.Sleep(time.Second)
 	fmt.Println("Finished ", num)
 }
+
+// RW Mutex
+
+type Repo struct {
+	data map[string]int
+	lock *sync.RWMutex
+}
+
+func NewRepo(data map[string]int) *Repo {
+	return &Repo {
+		data: data
+		lock: &sync.RWMutex
+	}
+}
+
+func (r *Repo) Len() int {
+	r.lock.RLock()
+	defer r.lock.RUnlock()
+	return len(r.data)
+}
+
+func (r *Repo) Get(key string) (int, bool) {
+	r.lock.RLock()
+	defer r.lock.RUnlock()
+	val, ok := r.data[key]
+	return val, ok
+}
+
+func (r *Repo) Delete(key string) bool {
+	r.lock.Lock()
+	defer r.lock.Unlock()
+	val, ok := r.data[key]
+	if ok {
+		delete(r.data, key)
+	}
+	return ok
+}
+
+func (r *Repo) Put(key string, val int) bool {
+	r.lock.Lock()
+	defer r.lock.Unlock()
+	old_val, ok := r.data[key]
+	r.data[key] = val
+	return old_val, ok
+}
+
+func rwMutex() {
+	
+}
